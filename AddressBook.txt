@@ -133,4 +133,85 @@ mysql> select state,count(state) from addressbook group by state;
 | Karnatka    |            1 |
 +-------------+--------------+
 2 rows in set (0.00 sec)
+-------------------------------------UC8 Sort Data using order by-----------------------------------------
 
+mysql> insert into addressbook values
+    -> ('Priti','Chaudhari','Pune','Pune','Maharashtra',456214,2136458,'priti@gmail.com'),
+    -> ('Harshal','Chaudhari','Surat','Surat','Gujrat',23154,1236542,'harshal@yahoo.com');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
+| firstName | lastName  | address  | city     | state       | zipCode | phoneNumber | email               |
++-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
+| Harshal   | Chaudhari | Surat    | Surat    | Gujrat      |   23154 |     1236542 | harshal@yahoo.com   |
+| Prarthana | Chaudhari | Mumbai   | Mumbai   | Maharashtra |  754682 |    45584662 | prarthana@yahoo.com |
+| Priti     | Chaudhari | Pune     | Pune     | Maharashtra |  456214 |     2136458 | priti@gmail.com     |
+| Rohit     | Chaudhari | Banglore | Banglore | Karnatka    |  654225 |     5558656 | rohit@yahoo.com     |
++-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select firstname from addressbook order by city;
++-----------+
+| firstname |
++-----------+
+| Rohit     |
+| Prarthana |
+| Priti     |
+| Harshal   |
++-----------+
+4 rows in set (0.00 sec)
+-----------------------------UC9 Add addressbookname and type-----------------------------------------------------------
+mysql> alter table addressbook add type varchar(30) after lastname;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc addressbook;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| firstName   | varchar(100) | NO   | PRI | NULL    |       |
+| lastName    | varchar(100) | NO   |     | NULL    |       |
+| type        | varchar(30)  | YES  |     | NULL    |       |
+| address     | varchar(100) | NO   |     | NULL    |       |
+| city        | varchar(100) | NO   |     | NULL    |       |
+| state       | varchar(100) | NO   |     | NULL    |       |
+| zipCode     | int unsigned | NO   |     | NULL    |       |
+| phoneNumber | bigint       | NO   |     | NULL    |       |
+| email       | varchar(100) | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> update addressbook set type = 'Family' where firstname = 'Priti';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'Friend' where firstname = 'Prarthana';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type = 'Profession' where firstname = 'Harshal';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select * from addressbook;
++-----------+-----------+------------+----------+----------+-------------+---------+-------------+---------------------+
+| firstName | lastName  | type       | address  | city     | state       | zipCode | phoneNumber | email               |
++-----------+-----------+------------+----------+----------+-------------+---------+-------------+---------------------+
+| Harshal   | Chaudhari | Profession | Surat    | Surat    | Gujrat      |   23154 |     1236542 | harshal@yahoo.com   |
+| Prarthana | Chaudhari | Friend     | Mumbai   | Mumbai   | Maharashtra |  754682 |    45584662 | prarthana@yahoo.com |
+| Priti     | Chaudhari | Family     | Pune     | Pune     | Maharashtra |  456214 |     2136458 | priti@gmail.com     |
+| Rohit     | Chaudhari | NULL       | Banglore | Banglore | Karnatka    |  654225 |     5558656 | rohit@yahoo.com     |
++-----------+-----------+------------+----------+----------+-------------+---------+-------------+---------------------+
+4 rows in set (0.00 sec)
+-------------------------------UC10---------Count by type------------------------------------------------------------------------------------------------
+mysql> select type,count(type) from addressbook group by type;
++------------+-------------+
+| type       | count(type) |
++------------+-------------+
+| Profession |           1 |
+| Friend     |           1 |
+| Family     |           1 |
+| NULL       |           0 |
++------------+-------------+
+4 rows in set (0.00 sec)
