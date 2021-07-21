@@ -87,3 +87,16 @@ mysql> select * from addressbook;
 | Rohit     | Chaudhari | Banglore | Banglore | Karnatka    |  654225 |     5558656 | rohit@yahoo.com     |
 +-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
 3 rows in set (0.00 sec)
+-------------------UC5--------------------Delete contact by name-----------------------------------------------------
+mysql> delete from addressbook where firstname="Priti";
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from addressbook;
++-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
+| firstName | lastName  | address  | city     | state       | zipCode | phoneNumber | email               |
++-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
+| Prarthana | Chaudhari | Mumbai   | Mumbai   | Maharashtra |  754682 |    45584662 | prarthana@yahoo.com |
+| Rohit     | Chaudhari | Banglore | Banglore | Karnatka    |  654225 |     5558656 | rohit@yahoo.com     |
++-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
+2 rows in set (0.00 sec)
+
