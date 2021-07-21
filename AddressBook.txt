@@ -100,3 +100,37 @@ mysql> select * from addressbook;
 +-----------+-----------+----------+----------+-------------+---------+-------------+---------------------+
 2 rows in set (0.00 sec)
 
+------------------------UC6----------------------Search by city or state-----------------------------------------------
+mysql> select * from addressbook where city="Mumbai";
++-----------+-----------+---------+--------+-------------+---------+-------------+---------------------+
+| firstName | lastName  | address | city   | state       | zipCode | phoneNumber | email               |
++-----------+-----------+---------+--------+-------------+---------+-------------+---------------------+
+| Prarthana | Chaudhari | Mumbai  | Mumbai | Maharashtra |  754682 |    45584662 | prarthana@yahoo.com |
++-----------+-----------+---------+--------+-------------+---------+-------------+---------------------+
+1 row in set (0.00 sec)
+mysql> select * from addressbook where State="Karnatka";
++-----------+-----------+----------+----------+----------+---------+-------------+-----------------+
+| firstName | lastName  | address  | city     | state    | zipCode | phoneNumber | email           |
++-----------+-----------+----------+----------+----------+---------+-------------+-----------------+
+| Rohit     | Chaudhari | Banglore | Banglore | Karnatka |  654225 |     5558656 | rohit@yahoo.com |
++-----------+-----------+----------+----------+----------+---------+-------------+-----------------+
+1 row in set (0.00 sec)
+---------------------------------UC7-------------count contacts by city or state---------------------------------------
+mysql> select city,count(city) from addressbook group by city;
++----------+-------------+
+| city     | count(city) |
++----------+-------------+
+| Mumbai   |           1 |
+| Banglore |           1 |
++----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select state,count(state) from addressbook group by state;
++-------------+--------------+
+| state       | count(state) |
++-------------+--------------+
+| Maharashtra |            1 |
+| Karnatka    |            1 |
++-------------+--------------+
+2 rows in set (0.00 sec)
+
